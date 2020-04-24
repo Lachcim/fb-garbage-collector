@@ -6,6 +6,7 @@ def log_in(self, username=None, password=None, credentials_path="credentials.jso
         credentials = get_credentials(credentials_path)
         username = credentials["username"]
         password = credentials["password"]
+        self.group = credentials["group"]
 
     # type username and password into login form and submit
     self.wait_for_element("#email")

@@ -4,6 +4,7 @@ from selenium import webdriver
 class RyszardBot:  
     def __init__(self):
         self.driver = None
+        self.group = None
         
     def start_driver(self, driver=None, downloads="downloads"):
         # provide default driver
@@ -35,6 +36,7 @@ class RyszardBot:
             except:
                 pass
     
+    from ryszardbot.actions import remove_failed_posts
     from ryszardbot.auth import log_in
     from ryszardbot.helpers import (find_element,
                                     wait_for_element,
