@@ -1,6 +1,7 @@
 import code
 import logging
 import sys
+import time
 import traceback
 from threading import Thread
 import ryszardbot
@@ -26,13 +27,13 @@ bot.log_in()
 
 logging.info("bot online")
 
-def console_exit():
-    raise SystemExit
-
-try:
-    code.interact(local={"exit": console_exit, "bot": bot})
-except SystemExit:
-    pass
+while True:
+    try:
+        bot.remove_failed_posts()
+    except:
+        logging.error(traceback.format_exc())
+        
+    time.sleep(600)
     
-pull_events = False
+
 bot.kill_driver()

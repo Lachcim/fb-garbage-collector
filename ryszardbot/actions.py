@@ -16,6 +16,9 @@ def remove_failed_posts(self):
     posts = self.execute_script("getposts")
     now = datetime.now(tz=None).timestamp()
     
+    if len(posts) == 0:
+        logging.error("failed to fetch posts")
+    
     for post in posts:
         difference = (now - post["time"]) / 3600
         
