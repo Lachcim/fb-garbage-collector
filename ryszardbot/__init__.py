@@ -36,7 +36,8 @@ class RyszardBot:
             except:
                 pass
     
-    from ryszardbot.actions import remove_failed_posts
+    from ryszardbot.actions import (remove_failed_posts,
+                                    remove_post)
     from ryszardbot.auth import log_in
     from ryszardbot.helpers import (find_element,
                                     wait_for_element,
