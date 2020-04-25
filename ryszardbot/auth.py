@@ -18,3 +18,6 @@ def log_in(self, username=None, password=None, credentials_path="credentials.jso
     
     # wait until the main application has loaded
     self.wait_for_element("#userNav")
+
+    # navigate to blank page
+    self.driver.get("about:blank")
