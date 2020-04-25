@@ -4,6 +4,7 @@ import sys
 import time
 import traceback
 from threading import Thread
+from pyvirtualdisplay import Display
 import ryszardbot
 
 # configure logging to file
@@ -19,6 +20,7 @@ stdout_handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(messa
 logging.getLogger().addHandler(stdout_handler)
 
 logging.info("bot starting")
+display = Display(visible=False, size=(800, 600)).start()
 bot = ryszardbot.RyszardBot()
 bot.start_driver()
 
