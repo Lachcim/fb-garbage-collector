@@ -40,7 +40,7 @@ def remove_failed_posts(self):
         
         logging.info("post by {0} marked for deletion ({1} likes in {2:.2f} hours) {3}".format(post["author"], post["likeCount"], difference, post["permalink"]))
         message = "AUTOMATYCZNE USUNIĘCIE: LICZBA REAKCJI {0} PO {1:.2f} GODZ.\n\n"
-        message += "Aby utrzymać wysoki poziom grupy, wpisy które nie osiągnęły 50 reakcji w ciągu godziny są automatycznie usuwane. "
+        message += "Wpisy które nie osiągnęły 50 reakcji w ciągu godziny są automatycznie usuwane. "
         message += "Usuwanie jest zawieszone w godzinach od 23 do 11."
         
         result = self.remove_post(post["permalink"], message.format(post["likeCount"], difference))
