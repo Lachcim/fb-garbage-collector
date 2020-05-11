@@ -48,7 +48,8 @@ def remove_failed_posts(self):
         if result:
             logging.info("post deleted successfully")
         else:
-            logging.info("couldn't remove post")
+            logging.error("couldn't remove post")
+            bot.driver.save_screenshot("screenshot.png")
             
     self.driver.get("about:blank")
 

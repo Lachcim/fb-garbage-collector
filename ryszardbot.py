@@ -34,6 +34,7 @@ while True:
         bot.remove_failed_posts()
     except:
         logging.error(traceback.format_exc())
+        bot.driver.save_screenshot("screenshot.png")
         
     time.sleep(600)
     
