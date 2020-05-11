@@ -5,6 +5,7 @@ class RyszardBot:
     def __init__(self):
         self.driver = None
         self.group = None
+        self.post_states = {}
         
     def start_driver(self, driver=None, downloads="downloads"):
         # provide default driver
