@@ -42,7 +42,7 @@ def log_in(self, username=None, password=None, credentials_path="credentials.jso
             self.wait_for_element("input[value=dont_save]")
             self.find_element("input[value=dont_save]").click()
             
-            self.wait_for_element("#userNav, #")
+            self.wait_for_element("#userNav")
 
     # navigate to blank page
     self.driver.get("about:blank")
