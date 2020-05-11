@@ -1,3 +1,4 @@
+import logging
 from ryszardbot.helpers import get_credentials
 
 def log_in(self, username=None, password=None, credentials_path="credentials.json"):
@@ -22,8 +23,11 @@ def log_in(self, username=None, password=None, credentials_path="credentials.jso
     # handle code prompt
     codeInput = self.find_element("#approvals_code")
     if codeInput:
+        logging.info("two factor authorization enabled")
+        
         # prompt for and type code
         code = input("Authentication code: ")
+        logging.info("authorizaton code received")
         codeInput.click()
         codeInput.send_keys(code)
         
@@ -38,6 +42,8 @@ def log_in(self, username=None, password=None, credentials_path="credentials.jso
         
         # click through unknown device dialog
         if self.find_element("#checkpointSecondaryButton"):
+            logging.info("dismissing unknown device dialog")
+            
             self.find_element("#checkpointSubmitButton").click()
             self.wait_for_element("input[value=dont_save]")
             self.find_element("input[value=dont_save]").click()
