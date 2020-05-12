@@ -2,9 +2,14 @@ var rawPosts = document.querySelectorAll("[role=article][id*=post]");
 var posts = [];
 
 for (var i = 0; i < rawPosts.length; i++) {
-	posts[i] = {}
-	posts[i].likeCount = rawPosts[i].querySelector("[data-testid*=ReactionsCount]") || 0;
-	if (posts[i].likeCount) posts[i].likeCount = parseInt(posts[i].likeCount.innerText);
+	posts[i] = {};
+	posts[i].likeCount = rawPosts[i].querySelector("[data-testid*=ReactionsCount] span[aria-hidden=true]") || 0;
+	if (posts[i].likeCount) {
+		if (posts[i].likeCount.innerText.indexOf("K") == -1)
+			posts[i].likeCount = parseInt(posts[i].likeCount.innerText);
+		else
+			posts[i].likeCount = parseFloat(posts[i].likeCount.innerText) * 1000;
+	}
 	posts[i].time = parseInt(rawPosts[i].querySelector("[data-utime]").getAttribute("data-utime"));
 	posts[i].text = rawPosts[i].querySelector("[data-testid=post_message]");
 	if (posts[i].text) posts[i].text = posts[i].text.innerText;
