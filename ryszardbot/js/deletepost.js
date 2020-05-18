@@ -1,4 +1,4 @@
-var permalink = arguments[0].substr(48);
+var permalink = arguments[0].match(/permalink\/(\d+)\//)[1];
 var postLink = document.querySelector("a[href*=\"" + permalink + "\"]");
 var post = postLink;
 while (post.getAttribute("role") != "article")
@@ -42,7 +42,7 @@ console.log("awaiting menu");
 await waitForElement("div.uiContextualLayerPositioner:not(.hidden_elem) #post_menu");
 
 console.log("seeking and clicking delete option");
-var deleteOption = document.querySelector("a[data-feed-option-name=MallPostDeleteOption][ajaxify*='" + permalink.substr(10, 15) + "']");
+var deleteOption = document.querySelector("a[data-feed-option-name=MallPostDeleteOption][ajaxify*='" + permalink + "']");
 if (!deleteOption) return false;
 deleteOption.click();
 
@@ -54,6 +54,6 @@ document.querySelector("input[name=share_feedback]").checked = true;
 document.querySelector("button.layerConfirm").click();
 
 console.log("awaiting finalization");
-await waitForElement("[id='" + permalink.substr(10, 15) + "'].uiBoxGray");
+await waitForElement("[id='" + permalink + "'].uiBoxGray");
 console.log("post deleted")
 return true;
