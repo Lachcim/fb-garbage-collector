@@ -17,7 +17,7 @@ for (var i = 0; i < rawPosts.length; i++) {
 	posts[i].image = rawPosts[i].querySelector("img[data-src]");
 	if (posts[i].image) posts[i].image = posts[i].image.src;
 	posts[i].admin = rawPosts[i].querySelector("div[data-testid=story-subtitle] a[href*='badge_type=ADMIN']") != null;
-	posts[i].permalink = rawPosts[i].querySelector("a[href*=permalink]").href;
+	posts[i].permalink = rawPosts[i].querySelector("div[data-testid=story-subtitle] a[href*=permalink]").href;
 }
 
 return posts;
