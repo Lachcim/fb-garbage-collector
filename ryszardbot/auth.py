@@ -23,11 +23,11 @@ def log_in(self, username=None, password=None, credentials_path="credentials.jso
     # handle code prompt
     codeInput = self.find_element("#approvals_code")
     if codeInput:
-        logging.info("two factor authorization enabled")
+        logging.info("two factor authentication enabled")
         
         # prompt for and type code
         code = input("Authentication code: ")
-        logging.info("authorizaton code received")
+        logging.info("authentication code received")
         codeInput.click()
         codeInput.send_keys(code)
         
