@@ -1,5 +1,5 @@
 var permalink = arguments[0].match(/permalink\/(\d+)\//)[1];
-var postLink = document.querySelector("a[href*=\"" + permalink + "\"]");
+var postLink = document.querySelector("[role=article] a[href*=\"" + permalink + "\"]");
 var post = postLink;
 while (post.getAttribute("role") != "article")
 	post = post.parentElement;
