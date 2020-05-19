@@ -6,7 +6,7 @@ from ryszardbot.helpers import execute_script
 
 def remove_failed_posts(self):
     hour = datetime.now().hour
-    if hour < 11 or hour >= 23:
+    if hour < 9 or hour >= 23:
         logging.info("removal of failed posts suspended")
         return
     
@@ -51,7 +51,7 @@ def remove_failed_posts(self):
         if post_state == "pending_removal":
             message = "AUTOMATYCZNE USUNIĘCIE: LICZBA REAKCJI {0} PO {1:.2f} GODZ.\n\n"
             message += "Wpisy które nie osiągnęły 50 reakcji w ciągu godziny są automatycznie usuwane. "
-            message += "Usuwanie jest zawieszone w godzinach od 23 do 11."
+            message += "Usuwanie jest zawieszone w godzinach od 23 do 9."
             
             result = self.remove_post(post["permalink"], message.format(post["likeCount"], difference))
             
