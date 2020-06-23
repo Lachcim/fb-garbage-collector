@@ -30,6 +30,9 @@ def remove_failed_posts(self):
         if post["admin"]:
             post_state = "exempt_admin"
             post_state_message = "post by {0} allowed due to adminship {1}".format(post["author"], post["permalink"])
+        elif post["moderator"]:
+            post_state = "exempt_moderator"
+            post_state_message = "post by {0} allowed due to moderatorship {1}".format(post["author"], post["permalink"])
         elif difference >= 24:
             post_state = "grandfathered"
             post_state_message = "post by {0} grandfathered in ({1:.2f} hours) {2}".format(post["author"], difference, post["permalink"])
