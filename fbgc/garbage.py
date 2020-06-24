@@ -1,6 +1,6 @@
 from datetime import datetime
 import logging
-from ryszardbot.helpers import execute_script
+from fbgc.helpers import execute_script
 
 def collect_garbage(self):
     # check if garbage collection is enabled at this time
@@ -43,7 +43,7 @@ def collect_garbage(self):
                 logging.info("post removed successfully")
             else:
                 logging.error("couldn't remove post")
-                self.driver.save_screenshot("ryszardbot.png")
+                self.driver.save_screenshot("screenshot.png")
                 
     # report no changes
     if not changes:

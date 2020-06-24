@@ -6,12 +6,12 @@ import time
 import traceback
 from threading import Thread
 from pyvirtualdisplay import Display
-import ryszardbot
+import fbgc
 
 # configure logger
 logging.basicConfig(
     handlers=[
-        logging.FileHandler("ryszardbot.log", "a", "utf-8"),
+        logging.FileHandler("fbgarbagecollector.log", "a", "utf-8"),
         logging.StreamHandler(sys.stdout)
     ],
     format="%(asctime)s %(levelname)s %(message)s",
@@ -23,7 +23,7 @@ if platform.system() != "Windows":
 
 # start bot and log in
 logging.info("bot starting")
-bot = ryszardbot.RyszardBot()
+bot = fbgc.FBGarbageCollector()
 bot.get_config()
 bot.start_driver()
 bot.log_in()
