@@ -1,0 +1,11 @@
+{
+	"group": "",
+	"collect_interval": 600,
+	"start_hour": 9,
+	"end_hour": 23,
+	"like_check_time": 1,
+	"like_count": 50,
+	"grandfather_time": 24,
+	"admins_exempt": true,
+	"moderators_exempt": true
+}
