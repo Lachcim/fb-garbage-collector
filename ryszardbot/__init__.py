@@ -12,6 +12,7 @@ class RyszardBot:
         options.add_argument("headless")
         options.add_argument("log-level=3")
         options.add_argument("user-agent=Mozilla/5.0 Chrome/80.0 RyszardBot/0.1")
+        options.add_argument("user-data-dir=userdata")
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
         
         self.driver = webdriver.Chrome(chrome_options=options)
