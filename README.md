@@ -14,7 +14,7 @@ FB Garbage Collector is a Facebook moderation bot which automatically removes gr
 
 1. Install the required Python packages (see requirements.txt)
 2. Install Chrome and ChromeDriver for Selenium
-3. Configure bot via credentials.json and config.json
+3. Configure the bot via credentials.json and config.json
 4. Run `python fbgarbagecollector.py`
 
 Because the bot uses the same interface that a human would, it requires access to a Facebook account with moderator permissions. Creating a separate account is recommended for this purpose. To prevent unauthorized access, consider enabling two-factor authentication.
