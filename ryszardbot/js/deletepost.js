@@ -1,17 +1,17 @@
-var permalink = arguments[0].match(/permalink\/(\d+)\//)[1];
-var postLink = document.querySelector("[role=article] a[href*=\"" + permalink + "\"]");
-var post = postLink;
+//get post container from permalink
+const permalink = arguments[0].match(/permalink\/(\d+)\//)[1];
+const postLink = document.querySelector("[role=article] a[href*=\"" + permalink + "\"]");
+let post = postLink;
 while (post.getAttribute("role") != "article")
 	post = post.parentElement;
 
-console.log("deleting post");
-
+//helper function - resolves when query returns result
 function waitForElement(query, inverted) {
 	inverted = inverted || false;
 	
 	return new Promise(function (resolve, reject) {
-		var start = new Date();
-		var interval;
+		const start = new Date();
+		let interval;
 		
 		function work() {
 			if (new Date() - start >= 10000) {
@@ -19,7 +19,7 @@ function waitForElement(query, inverted) {
 				reject();
 			}
 			
-			var result = document.querySelector(query);
+			const result = document.querySelector(query);
 			if (Boolean(result) != inverted) {
 				clearInterval(interval);
 				resolve(result);
@@ -29,31 +29,21 @@ function waitForElement(query, inverted) {
 		interval = setInterval(work, 100);
 	});
 }
-function wait(timeout) {
-	return new Promise(function (resolve) {
-		setTimeout(resolve, timeout);
-	});
-}
 
-debugger;
-console.log("clicking chevron");
+//click chevron and await post menu
 post.querySelector("[data-testid=post_chevron_button]").click();
-console.log("awaiting menu");
 await waitForElement("div.uiContextualLayerPositioner:not(.hidden_elem) #post_menu");
 
-console.log("seeking and clicking delete option");
-var deleteOption = document.querySelector("a[data-feed-option-name=MallPostDeleteOption][ajaxify*='" + permalink + "']");
+//click delete option, unless there's none
+const deleteOption = document.querySelector("a[data-feed-option-name=MallPostDeleteOption][ajaxify*='" + permalink + "']");
 if (!deleteOption) return false;
 deleteOption.click();
 
-console.log("awaiting deletion dialog")
+//wait for deletion dialog to appear and fill out form
 await waitForElement("textarea[name=admin_notes]");
-console.log("filling deletion form")
 document.querySelector("textarea[name=admin_notes]").value = arguments[1];
-document.querySelector("input[name=share_feedback]").checked = true;
 document.querySelector("button.layerConfirm").click();
 
-console.log("awaiting finalization");
+//wait for confirmation box
 await waitForElement("[id='" + permalink + "'].uiBoxGray");
-console.log("post deleted")
 return true;
