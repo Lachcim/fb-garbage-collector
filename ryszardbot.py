@@ -1,5 +1,6 @@
 import code
 import logging
+import platform
 import sys
 import time
 import traceback
@@ -17,7 +18,8 @@ logging.basicConfig(
     level=logging.INFO)
 
 # create virtual display for Chrome
-display = Display(visible=False, size=(800, 600)).start()
+if platform.system() != "Windows":
+    Display(visible=False, size=(800, 600)).start()
 
 # start bot and log in
 logging.info("bot starting")
