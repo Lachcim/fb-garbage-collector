@@ -4,7 +4,7 @@ from time import sleep
 from selenium.common.exceptions import TimeoutException
 from ryszardbot.helpers import execute_script
 
-def remove_failed_posts(self):
+def collect_garbage(self):
     hour = datetime.now().hour
     if hour < 9 or hour >= 23:
         logging.info("removal of failed posts suspended")
@@ -56,7 +56,7 @@ def remove_failed_posts(self):
             message += "Wpisy które nie osiągnęły 50 reakcji w ciągu godziny są automatycznie usuwane. "
             message += "Usuwanie jest zawieszone w godzinach od 23 do 9."
             
-            result = self.remove_post(post["permalink"], message.format(post["likeCount"], difference))
+            result = self.execute_script("deletepost", post["permalink"], message.format(post["likeCount"], difference))
             
             if result:
                 logging.info("post removed successfully")
@@ -68,6 +68,3 @@ def remove_failed_posts(self):
         logging.info("no changes since last scan")
             
     self.driver.get("about:blank")
-
-def remove_post(self, permalink, reason):
-    return self.execute_script("deletepost", permalink, reason)

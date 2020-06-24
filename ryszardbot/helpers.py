@@ -14,7 +14,7 @@ def wait_for_element(self, query, timeout=10, frequency=0.1):
     wait = WebDriverWait(self.driver, timeout, frequency)
     wait.until(lambda x: self.find_element(query))
         
-def get_credentials(path):
+def get_config(path):
     with open(path) as f:
         return json.load(f)
 

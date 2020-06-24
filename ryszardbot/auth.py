@@ -1,13 +1,14 @@
 import logging
-from ryszardbot.helpers import get_credentials
+from ryszardbot.helpers import get_config
 
-def log_in(self, username=None, password=None, credentials_path="credentials.json"):
-    # get credentials from file if needed
-    if not username or not password:
-        credentials = get_credentials(credentials_path)
-        username = credentials["username"]
-        password = credentials["password"]
-        self.group = credentials["group"]
+def log_in(self):
+    # get credentials from file
+    credentials = get_config("credentials.json")
+    username = credentials["username"]
+    password = credentials["password"]
+
+    # navigate to login screen
+    self.driver.get("https://www.facebook.com/")
 
     # type username and password into login form and submit
     self.wait_for_element("#email")
