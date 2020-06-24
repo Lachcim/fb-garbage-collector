@@ -9,9 +9,15 @@ def log_in(self):
 
     # navigate to login screen
     self.driver.get("https://www.facebook.com/")
+    self.wait_for_element("#email, div[role=navigation]")
+
+    # return if already logged in
+    if self.find_element("div[role=navigation]"):
+        logging.info("already logged in")
+        self.driver.get("about:blank")
+        return
 
     # type username and password into login form and submit
-    self.wait_for_element("#email")
     self.find_element("#email").click()
     self.find_element("#email").send_keys(username)
     self.find_element("#pass").click()
@@ -34,8 +40,8 @@ def log_in(self):
         
         # submit code and don't save device
         self.find_element("#checkpointSubmitButton").click()
-        self.wait_for_element("input[value=dont_save]")
-        self.find_element("input[value=dont_save]").click()
+        self.wait_for_element("input[value=save_device]")
+        self.find_element("input[value=save_device]").click()
         self.find_element("#checkpointSubmitButton").click()
         
         # wait for the main app or the unknown device dialog
@@ -46,8 +52,8 @@ def log_in(self):
             logging.info("dismissing unknown device dialog")
             
             self.find_element("#checkpointSubmitButton").click()
-            self.wait_for_element("input[value=dont_save]")
-            self.find_element("input[value=dont_save]").click()
+            self.wait_for_element("input[value=save_device]")
+            self.find_element("input[value=save_device]").click()
             
             self.wait_for_element("#userNav")
 
