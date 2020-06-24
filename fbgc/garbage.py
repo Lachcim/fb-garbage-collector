@@ -84,9 +84,10 @@ def format_state_message(post_state, post):
                                 permalink=post["permalink"])
                                 
 def format_removal_message(post, config):
-    message = "AUTOMATIC REMOVAL: {like_count} REACTIONS AFTER {age:.2f} HOURS\n\n"
-    message += "Entries that didn't reach {min_likes} reactions in {min_age} hours are automatically removed. "
-    message += "Removal is suspended from {end_time} to {start_time}."
+    message = "AUTOMATICALLY REMOVED: {like_count} REACTIONS IN {age:.2f} HOURS\n\n"
+    message += "Submissions that failed to reach {min_likes} reactions in {min_age} hour(s) are automatically removed. "
+    message += "Removal is suspended from {end_time} to {start_time}.\n\n"
+    message += "FB Garbage Collector https://github.com/Lachcim/fb-garbage-collector/"
     
     return message.format(like_count=post["likeCount"],
                           age=(datetime.now(tz=None).timestamp() - post["time"]) / 3600,
