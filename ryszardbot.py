@@ -25,9 +25,7 @@ if platform.system() != "Windows":
 logging.info("bot starting")
 bot = ryszardbot.RyszardBot()
 bot.start_driver()
-logging.info("logging in")
 bot.log_in()
-logging.info("bot online")
 
 while True:
     try:

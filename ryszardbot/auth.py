@@ -2,11 +2,6 @@ import logging
 from ryszardbot.helpers import get_config
 
 def log_in(self):
-    # get credentials from file
-    credentials = get_config("credentials.json")
-    username = credentials["username"]
-    password = credentials["password"]
-
     # navigate to login screen
     self.driver.get("https://www.facebook.com/")
     self.wait_for_element("#email, div[role=navigation]")
@@ -16,6 +11,13 @@ def log_in(self):
         logging.info("already logged in")
         self.driver.get("about:blank")
         return
+        
+    logging.info("logging in")
+        
+    # get credentials from file
+    credentials = get_config("credentials.json")
+    username = credentials["username"]
+    password = credentials["password"]
 
     # type username and password into login form and submit
     self.find_element("#email").click()
@@ -58,4 +60,5 @@ def log_in(self):
             self.wait_for_element("#userNav")
 
     # navigate to blank page
+    logging.info("logged in")
     self.driver.get("about:blank")
