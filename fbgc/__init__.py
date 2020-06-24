@@ -12,7 +12,7 @@ class FBGarbageCollector:
     def start_driver(self):
         # create Chrome headless driver
         options = webdriver.ChromeOptions()
-        #options.add_argument("headless")
+        options.add_argument("headless")
         options.add_argument("log-level=3")
         options.add_argument("user-agent=Mozilla/5.0 Chrome/80.0 FBGarbageCollector/1.0")
         options.add_argument("user-data-dir=userdata")
