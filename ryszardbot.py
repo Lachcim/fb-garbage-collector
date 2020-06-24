@@ -7,17 +7,14 @@ from threading import Thread
 from pyvirtualdisplay import Display
 import ryszardbot
 
-# configure logging to file
-logfile_handler = logging.FileHandler("ryszardbot.log", "a", "utf-8")
-logfile_handler.setLevel("INFO")
-logfile_handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
-logging.getLogger().addHandler(logfile_handler)
-
-# also log to stdout
-stdout_handler = logging.StreamHandler(sys.stdout)
-stdout_handler.setLevel("INFO")
-stdout_handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
-logging.getLogger().addHandler(stdout_handler)
+# configure logger
+logging.basicConfig(
+    handlers=[
+        logging.FileHandler("ryszardbot.log", "a", "utf-8"),
+        logging.StreamHandler(sys.stdout)
+    ],
+    format="%(asctime)s %(levelname)s %(message)s",
+    level=logging.INFO)
 
 # create virtual display for Chrome
 display = Display(visible=False, size=(800, 600)).start()
