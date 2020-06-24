@@ -1,5 +1,4 @@
 import logging
-from ryszardbot.helpers import get_config
 
 def log_in(self):
     # navigate to login screen
@@ -14,16 +13,11 @@ def log_in(self):
         
     logging.info("logging in")
         
-    # get credentials from file
-    credentials = get_config("credentials.json")
-    username = credentials["username"]
-    password = credentials["password"]
-
     # type username and password into login form and submit
     self.find_element("#email").click()
-    self.find_element("#email").send_keys(username)
+    self.find_element("#email").send_keys(self.credentials["username"])
     self.find_element("#pass").click()
-    self.find_element("#pass").send_keys(password)
+    self.find_element("#pass").send_keys(self.credentials["password"])
     self.find_element("[data-testid=royal_login_button]").click()
     
     # wait until the main application has loaded or the code prompt appears

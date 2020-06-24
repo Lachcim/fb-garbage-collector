@@ -24,6 +24,7 @@ if platform.system() != "Windows":
 # start bot and log in
 logging.info("bot starting")
 bot = ryszardbot.RyszardBot()
+bot.get_config()
 bot.start_driver()
 bot.log_in()
 
@@ -34,7 +35,7 @@ while True:
         logging.error(traceback.format_exc())
         bot.driver.save_screenshot("screenshot.png")
         
-    time.sleep(600)
+    time.sleep(bot.config["collect_interval"])
     
 
 bot.kill_driver()

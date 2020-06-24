@@ -1,9 +1,12 @@
 import os.path
 from selenium import webdriver
+from ryszardbot.helpers import get_config
 
 class RyszardBot:  
     def __init__(self):
         self.driver = None
+        self.credentials = None
+        self.config = None
         self.post_states = {}
         
     def start_driver(self):
@@ -24,6 +27,10 @@ class RyszardBot:
                 self.driver.quit()
             except:
                 pass
+                
+    def get_config(self):
+        self.credentials = get_config("credentials.json")
+        self.config = get_config("config.json")
     
     from ryszardbot.auth import log_in
     from ryszardbot.garbage import collect_garbage
