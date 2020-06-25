@@ -6,7 +6,7 @@ FB Garbage Collector is a Facebook moderation bot which automatically removes gr
 
 ## Features
 
-* Instantly deplorable - no authorization from Facebook required
+* Instantly deployable - no authorization from Facebook required
 * Configurable thresholds, time constraints and refresh rates
 * Verbose logging with screenshots on error
 
