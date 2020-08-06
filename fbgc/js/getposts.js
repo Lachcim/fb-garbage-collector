@@ -16,7 +16,7 @@ for (let i = 0; i < rawPosts.length; i++) {
 	}
 	
 	//extract author, time and permalink from always-existing elements
-	posts[i].author = rawPosts[i].querySelector("a[title]").title;
+	posts[i].author = rawPosts[i].querySelector("span[data-ft], h5[data-ft] a").innerText;
 	posts[i].time = parseInt(rawPosts[i].querySelector("[data-utime]").getAttribute("data-utime"));
 	posts[i].permalink = rawPosts[i].querySelector("div[data-testid=story-subtitle] a[href*=permalink]").href;
 	
