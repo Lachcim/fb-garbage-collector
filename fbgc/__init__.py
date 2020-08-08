@@ -1,4 +1,6 @@
+import logging
 import os.path
+import psutil
 from selenium import webdriver
 from fbgc.helpers import get_config, get_set
 
@@ -22,13 +24,47 @@ class FBGarbageCollector:
         self.driver = webdriver.Chrome(chrome_options=options)
         
     def kill_driver(self):
+        # give the driver a chance to quit on peaceful terms
         if self.driver:
             try:
-                # ignore exceptions due to Python shutting down
                 self.driver.quit()
-            except:
+            except KeyboardInterrupt:
+                # catch keyboard interrupt and move on to forceful killing
+                pass
+        
+        # ensure there are no zombie processes
+        # repeat procedure until successful
+        while True:
+            try:
+                # iterate over process list
+                forceful = False
+                for process in psutil.process_iter():            
+                    try:
+                        # look for chrome processes with the webdriver signature
+                        if process.name() != "chrome.exe":
+                            continue
+                        if not "--test-type=webdriver" in process.cmdline():
+                            continue
+                        
+                        # mark killing procedure as forceful
+                        if not forceful:
+                            logging.info("forcefully killing chrome processes")
+                            forceful = True
+                        
+                        # kill zombie process
+                        process.kill()
+                    except psutil.NoSuchProcess:
+                        # handle already killed processes
+                        pass
+                
+                # break loop on success
+                break
+            except KeyboardInterrupt:
+                # catch keyboard interrupt to ensure the procedure is complete before quitting
                 pass
                 
+        logging.info("driver killed")
+            
     def get_config(self):
         self.credentials = get_config("credentials.json")
         self.config = get_config("config.json")

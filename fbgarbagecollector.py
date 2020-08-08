@@ -1,10 +1,8 @@
-import code
 import logging
 import platform
 import sys
 import time
 import traceback
-from threading import Thread
 import fbgc
 
 # configure logger
@@ -16,26 +14,46 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(message)s",
     level=logging.INFO)
 
-# create virtual display for Chrome
+# create virtual display for Chrome on Unix
 if platform.system() != "Windows":
     from pyvirtualdisplay import Display
     Display(visible=False, size=(800, 600)).start()
 
-# start bot and log in
-logging.info("bot starting")
+# create instance of the bot
 bot = fbgc.FBGarbageCollector()
-bot.get_config()
-bot.start_driver()
-bot.log_in()
+logged_in = False
 
-while True:
+try:
+    logging.info("bot starting")
+    
+    # get configuration and log in
+    bot.get_config()
+    bot.start_driver()
+    bot.log_in()
+    
+    # enable main loop on success
+    logged_in = True
+except KeyboardInterrupt:
+    # skip main loop
+    pass
+except:
+    # log error, skip main loop
+    logging.error(traceback.format_exc())
+    bot.driver.save_screenshot("screenshot.png")
+    
+# do main loop if logged in
+while logged_in:
     try:
         bot.collect_garbage()
+        time.sleep(bot.config["collect_interval"])
+    except KeyboardInterrupt:
+        # stop main loop on keyboard interrupt
+        break
     except:
+        # log error
         logging.error(traceback.format_exc())
         bot.driver.save_screenshot("screenshot.png")
-        
-    time.sleep(bot.config["collect_interval"])
     
-
+# exit gracefully
+logging.info("bot shutting down")
 bot.kill_driver()
