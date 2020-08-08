@@ -5,7 +5,6 @@ import sys
 import time
 import traceback
 from threading import Thread
-from pyvirtualdisplay import Display
 import fbgc
 
 # configure logger
@@ -19,6 +18,7 @@ logging.basicConfig(
 
 # create virtual display for Chrome
 if platform.system() != "Windows":
+    from pyvirtualdisplay import Display
     Display(visible=False, size=(800, 600)).start()
 
 # start bot and log in
