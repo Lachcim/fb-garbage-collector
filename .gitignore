@@ -2,6 +2,7 @@ credentials.json
 config.json
 screenshot.png
 userdata/
+deletedposts.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

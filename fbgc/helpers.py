@@ -17,6 +17,13 @@ def wait_for_element(self, query, timeout=10, frequency=0.1):
 def get_config(path):
     with open(path) as f:
         return json.load(f)
+        
+def get_set(path):
+    try:
+        with open(path, "r") as f:
+            return set([l.rstrip("\n") for l in f])
+    except IOError as e:
+        return set()
 
 def get_script_path(script):
     path = __file__

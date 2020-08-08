@@ -26,7 +26,7 @@ def collect_garbage(self):
     
     # get post states and handle them accordingly
     for post in posts:
-        post_state = get_post_state(post, self.config)
+        post_state = get_post_state(post, self.config, self.deleted_posts)
         previous_post_state = self.post_states.get(post["permalink"], "")
         
         # report state changes
@@ -41,6 +41,11 @@ def collect_garbage(self):
             
             if result:
                 logging.info("post removed successfully")
+                
+                # add post to database of deleted posts
+                self.deleted_posts.add(post["permalink"])
+                with open("deletedposts.txt", "a") as f:
+                    f.write(post["permalink"] + "\n")
             else:
                 logging.error("couldn't remove post")
                 self.driver.save_screenshot("screenshot.png")
@@ -52,9 +57,11 @@ def collect_garbage(self):
     # navigate to blank page
     self.driver.get("about:blank")
 
-def get_post_state(post, config):
+def get_post_state(post, config, deleted_posts):
     age = (datetime.now(tz=None).timestamp() - post["time"]) / 3600
     
+    if post["permalink"] in deleted_posts:
+        return "preserved"
     if post["admin"] and config["admins_exempt"]:
         return "exempt_admin"
     if post["moderator"] and config["moderators_exempt"]:
@@ -70,6 +77,7 @@ def get_post_state(post, config):
 
 def format_state_message(post_state, post):    
     format_string = {
+        "preserved": "post by {author} preserved",
         "exempt_admin": "post by {author} allowed due to adminship",
         "exempt_moderator": "post by {author} allowed due to moderatorship",
         "grandfathered": "post by {author} grandfathered in ({age:.2f} hours)",

@@ -1,6 +1,6 @@
 import os.path
 from selenium import webdriver
-from fbgc.helpers import get_config
+from fbgc.helpers import get_config, get_set
 
 class FBGarbageCollector:  
     def __init__(self):
@@ -8,6 +8,7 @@ class FBGarbageCollector:
         self.credentials = None
         self.config = None
         self.post_states = {}
+        self.deleted_posts = set()
         
     def start_driver(self):
         # create Chrome headless driver
@@ -31,6 +32,7 @@ class FBGarbageCollector:
     def get_config(self):
         self.credentials = get_config("credentials.json")
         self.config = get_config("config.json")
+        self.deleted_posts = get_set("deletedposts.txt")
     
     from fbgc.auth import log_in
     from fbgc.garbage import collect_garbage
