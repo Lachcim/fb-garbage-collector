@@ -41,7 +41,7 @@ class FBGarbageCollector:
                 for process in psutil.process_iter():            
                     try:
                         # look for chrome processes with the webdriver signature
-                        if process.name() != "chrome.exe":
+                        if process.name() not in ["chrome.exe", "chromium"]:
                             continue
                         if not "--test-type=webdriver" in process.cmdline():
                             continue
