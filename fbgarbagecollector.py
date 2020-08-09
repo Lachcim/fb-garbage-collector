@@ -39,7 +39,7 @@ except KeyboardInterrupt:
 except:
     # log error, skip main loop
     logging.error(traceback.format_exc())
-    bot.driver.save_screenshot("screenshot.png")
+    bot.take_screenshot()
     
 # do main loop if logged in
 while logged_in:
@@ -52,7 +52,7 @@ while logged_in:
     except:
         # log error
         logging.error(traceback.format_exc())
-        bot.driver.save_screenshot("screenshot.png")
+        bot.take_screenshot()
     
 # exit gracefully
 logging.info("bot shutting down")

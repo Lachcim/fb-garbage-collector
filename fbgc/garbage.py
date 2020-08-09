@@ -48,7 +48,7 @@ def collect_garbage(self):
                     f.write(post["permalink"] + "\n")
             else:
                 logging.error("couldn't remove post")
-                self.driver.save_screenshot("screenshot.png")
+                self.take_screenshot()
                 
     # report no changes
     if not changes:

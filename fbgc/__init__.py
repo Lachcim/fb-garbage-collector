@@ -75,4 +75,5 @@ class FBGarbageCollector:
     from fbgc.helpers import (find_element,
                               wait_for_element,
                               execute_script,
-                              execute_async_script)
+                              execute_async_script,
+                              take_screenshot)

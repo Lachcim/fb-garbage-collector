@@ -1,4 +1,5 @@
 import json
+import logging
 import os.path
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
@@ -39,3 +40,9 @@ def execute_script(self, script, *args):
 def execute_async_script(self, script, *args):
     with open(get_script_path(script)) as f:
         return self.driver.execute_async_script(f.read(), *args)
+
+def take_screenshot(self):
+    try:
+        self.driver.save_screenshot("screenshot.png")
+    except:
+        logging.error("failed to take screenshot")
