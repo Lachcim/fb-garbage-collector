@@ -8,7 +8,7 @@ import fbgc
 # configure logger
 logging.basicConfig(
     handlers=[
-        logging.FileHandler("fbgarbagecollector.log", "a", "utf-8"),
+        logging.FileHandler("fbgarbagecollector.log", "a", "utf-8-sig"),
         logging.StreamHandler(sys.stdout)
     ],
     format="%(asctime)s %(levelname)s %(message)s",
