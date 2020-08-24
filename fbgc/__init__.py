@@ -72,6 +72,7 @@ class FBGarbageCollector:
     
     from fbgc.auth import log_in
     from fbgc.garbage import collect_garbage
+    from fbgc.misc import post
     from fbgc.helpers import (find_element,
                               wait_for_element,
                               execute_script,
