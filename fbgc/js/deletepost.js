@@ -40,10 +40,19 @@ if (!deleteOption) return false;
 deleteOption.click();
 
 //wait for deletion dialog to appear and fill out form
-await waitForElement("textarea[name=admin_notes]");
-document.querySelector("textarea[name=admin_notes]").value = arguments[1];
-document.querySelector("button.layerConfirm").click();
+await waitForElement("textarea[name=admin_notes], button[data-testid=delete_post_confirm_button]");
+if (document.querySelector("textarea[name=admin_notes]")) {
+	document.querySelector("textarea[name=admin_notes]").value = arguments[1];
+	document.querySelector("button.layerConfirm").click();
+	
+	//wait for confirmation box
+	await waitForElement("[id='" + permalink + "'].uiBoxGray");
+}
+else {
+	document.querySelector("button[data-testid=delete_post_confirm_button]").click();
+	
+	//wait for dialog to disappear
+	await waitForElement("button[data-testid=delete_post_confirm_button]", true);
+}
 
-//wait for confirmation box
-await waitForElement("[id='" + permalink + "'].uiBoxGray");
 return true;
